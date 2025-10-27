@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+
+    <title>Turing Machine Simulator</title>
+</head>
+<body>
+    
+    <div class="bigView">
+    <div class="turing-simulator">
+        <h1>TURING MACHINE SIMULATOR</h1>
+
+        <!-- Input area -->
+        <div class="controls">
+                <input type="text" id="tm-input" placeholder="Enter arguments (e.g. |||*||)">
+                <button id="run-btn">PUT ARGS</button>
+            </div>
+
+            <!-- Tape display -->
+            <div class="tape-view" id="tape-view">
+                
+                <!-- the tape cells will appear here -->
+            </div>
+            <div class="pointer"></div>
+            <div class="speed-control">
+                <label for="speed-slider">Speed</label>
+                <input type="range" id="speed-slider" min="100" max="2000" value="800" step="100">
+                <span id="speed-value">800</span>
+            </div>
+            <div id="log-area"></div>
+    </div>
+        <div class="code-part">
+            <div class="ide">
+                <textarea id="ide-area" placeholder="Write your Turing machine instructions here..."></textarea>
+                <button id="run-code-btn">▶ Run</button>
+            </div>
+            <div class="remarks">
+                <div class="info-box">
+                    <strong>Welcome to the Turing Machine Simulator</strong><br><br>
+                    This simulator handles an <em>unary</em> Turing Machine using the following rules:<br><br>
+                    • Each natural number <code>n</code> is represented by <code>n + 1</code> bars <code>|</code> (e.g., 3 → <code>||||</code>).<br>
+                    • Arguments are separated by <code>*</code>.<br>
+                    • The tape is infinite in both directions and filled with 0s (blanks).<br>
+                    • Each instruction follows: <code>current_state, seen_value, action, next_state</code>.<br>
+                    • Actions: write <code>|</code>, <code>0</code>, or <code>*</code>, or move <code>L</code> / <code>R</code>.<br>
+                    • The first instruction defines the initial state.<br>
+                    • The machine halts when encountering an undefined case.<br><br>
+                    Runtime errors occur when the TM attempts to perform an undefined operation.
+                </div>
+
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

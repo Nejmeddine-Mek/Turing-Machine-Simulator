@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+}
+
+
+.bigView {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    background-color: #f7f7f8; /* subtle page background */
+}
+
+.turing-simulator {
+    overflow: hidden;
+    padding: 30px 30px;
+    height: 90vh;
+    width: 65vw;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.turing-simulator:hover , .ide:hover, .remarks:hover{
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.code-part {
+    display: flex;
+    flex-direction: column;
+    width: 35vw;
+    height: 90vh;
+    background-color: white;
+    border: 1px solid #e3e6ea;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-left: 20px;
+    padding: 15px;
+    gap: 12px; /* space between ide and remarks */
+}
+
+.ide {
+    flex: 3;
+    background-color: #f8fafc;
+    border: 1px solid #edf0f3;
+    border-radius: 8px;
+    padding: 15px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.95rem;
+    color: #333;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+
+}
+
+.remarks {
+
+    background-color: #fdfdfd;
+    border: 1px solid #edf0f3;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.9rem;
+    color: #444;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    height: 40%;
+    overflow-y: auto;
+    flex: 0 0 auto; /* disable flex growth/shrink */
+}
+.remarks:hover{
+    cursor: pointer;
+}
+
+#ide-area {
+    width: 100%;
+    height: 90%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #1e293b; /* base text */
+    padding: 10px;
+    overflow-y: auto;
+    caret-color: #111;
+}
+#run-code-btn {
+  
+  bottom: 10px;
+  right: 10px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+#run-btn:hover {
+  background-color: #1d4ed8;
+}
+/* Remove weird blue focus outline */
+#ide-area:focus {
+    outline: none;
+    border: none;
+}
+
+/* Selection color */
+#ide-area::selection {
+    background: #c7d2fe;
+    color: #111;
+}
+
+/* Optional — make it look like code syntax */
+.syntax-keyword { color: #2563eb; font-weight: 600; }
+.syntax-string { color: #16a34a; }
+.syntax-number { color: #d97706; }
+.syntax-comment { color: #9ca3af; font-style: italic; }
+
+
+/* Optional redundancy, but good practice */
+#ide-area:focus {
+    outline: none;
+    border: none;
+}
+
+.turing-simulator h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    color: #222;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.controls {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+#tm-input {
+    width: 60%;
+    padding: 10px 14px;
+    border: 1px solid #dcdfe4;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: monospace;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+#tm-input:focus {
+    border-color: #0077ff;
+    box-shadow: 0 0 4px rgba(0,119,255,0.2);
+}
+
+#run-btn {
+    background-color: #0077ff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+#run-btn:hover {
+    background-color: #005fd1;
+}
+
+.tape-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;          /* hide extra tape parts */
+    background-color: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    width: 850px;              /* visible area (16 squares * 40px) */
+    height: 80px;              /* a bit taller for breathing space */
+    margin: 60px auto;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Continuous perfect squares */
+.tape-cell {
+    width: 40px;
+    height: 40px;              /* equal width/height → square */
+    flex: 0 0 40px;            /* prevents stretch */
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Active cell highlight */
+.tape-cell.active {
+    background-color: #e0e7ff;
+    border-color: #2563eb;
+    box-shadow: inset 0 0 3px #2563eb;
+}
+
+/* Center pointer */
+.pointer {
+
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #2563eb;
+    z-index: 10;
+}
+
+.tape-cell.writing {
+    background-color: #dbeafe;
+    color: #1e3a8a;
+    transition: background-color 0.2s ease;
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 10px auto 0 auto;
+    width: 90%;
+    font-family: "Consolas", "Courier New", monospace;
+    color: #e2e8f0;
+    border: none;
+    padding: 12px;
+    align-self: baseline;
+}
+
+.speed-control label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+#speed-slider {
+    width: 50%;
+    height: 5px;
+    background: linear-gradient(to right, #2563eb, #60a5fa);
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Custom thumb */
+#speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #3b82f6;
+    box-shadow: 0 0 6px #3b82f6;
+    transition: all 0.2s ease;
+}
+
+#speed-slider::-webkit-slider-thumb:hover {
+    background: #60a5fa;
+    box-shadow: 0 0 12px #60a5fa;
+}
+
+#speed-value {
+    font-size: 0.9rem;
+    color: #2563eb;
+    min-width: 70px;
+    text-align: right;
+}
+
+#log-area {
+    max-height: 200px;       /* fixed height */
+    overflow-y: auto;        /* scroll when content overflows */
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9fafb; /* subtle background */
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+/* Message boxes */
+.log-message {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    opacity: 0; /* start hidden for fade-in */
+}
+
+/* Success */
+.log-message.success {
+    color: #065f46;
+    background-color: #d1fae5;
+}
+
+/* Error */
+.log-message.error {
+    color: #b91c1c;
+    background-color: #fee2e2;
+}
